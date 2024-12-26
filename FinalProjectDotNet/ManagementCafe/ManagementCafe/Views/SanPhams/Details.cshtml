@@ -1,0 +1,39 @@
+﻿@model ManagementCafe.Models.SanPham
+
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+	<div class="card">
+		<div class="card-header">
+			<h2>@Html.DisplayFor(model => model.TenSanPham)</h2>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-4">
+					<img src="@Url.Content("~/Images/products/" + Model.HinhAnh)"
+					     class="img-fluid" alt="@Model.TenSanPham"
+					     style="max-height: 200px;max-width: 100%; object-fit: contain;"/>
+				</div>
+				<div class="col-md-8">
+					<dl class="row">
+						<dt class="col-sm-3">Tên Sản Phẩm:</dt>
+						<dd class="col-sm-9">@Html.DisplayFor(model => model.TenSanPham)</dd>
+
+						<dt class="col-sm-3">Giá:</dt>
+						<dd class="col-sm-9">@Html.DisplayFor(model => model.Gia)</dd>
+
+						<dt class="col-sm-3">Mô Tả Sản Phẩm:</dt>
+						<dd class="col-sm-9">@Html.DisplayFor(model => model.MoTa)</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer text-end">
+			@Html.ActionLink("Edit", "Edit", new { id = Model.SanPhamID }, new { @class = "btn btn-success" }) |
+			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+		</div>
+	</div>
+</div>

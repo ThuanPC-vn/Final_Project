@@ -1,0 +1,130 @@
+﻿@model ManagementCafe.Models.ChiTietHoaDon
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var donGiaInput = document.getElementById('DonGiaInput');
+            var thanhTienInput = document.getElementById('ThanhTienInput');
+
+            function formatCurrency(input) {
+                // Xóa tất cả các ký tự không phải số
+                let value = input.value.replace(/\D/g, '');
+
+                // Định dạng lại số với dấu phẩy
+                value = new Intl.NumberFormat('vi-VN').format(value);
+
+                // Gán lại giá trị đã định dạng vào input
+                input.value = value;
+            }
+
+            donGiaInput.addEventListener('input', function () {
+                formatCurrency(donGiaInput);
+            });
+
+            thanhTienInput.addEventListener('input', function () {
+                formatCurrency(thanhTienInput);
+            });
+
+            // Định dạng lại giá trị ban đầu khi trang được tải
+            let initialDonGiaValue = donGiaInput.value.replace(/\D/g, '');
+            donGiaInput.value = new Intl.NumberFormat('vi-VN').format(initialDonGiaValue);
+
+            let initialThanhTienValue = thanhTienInput.value.replace(/\D/g, '');
+            thanhTienInput.value = new Intl.NumberFormat('vi-VN').format(initialThanhTienValue);
+        });
+    </script>
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ChiTietHoaDon</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ChiTietHoaDonID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoaDonID, "Hóa đơn ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("HoaDonID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.HoaDonID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SanPhamID, "Sản Phẩm", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SanPhamID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SanPhamID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoLuong, "Số Lượng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+	        @Html.LabelFor(model => model.DonGia, "Đơn Giá", htmlAttributes: new { @class = "control-label col-md-2" })
+	        <div class="col-md-10">
+		        <div class="input-group mb-3">
+			        <input type="text"
+			               id="DonGiaInput"
+			               name="DonGiaInput"
+			               class="form-control-sm"
+			               placeholder="Nhập ở dạng số"
+			               aria-label="Gia"
+			               aria-describedby="basic-addon1"
+			               value="@Model.DonGia.ToString("N0")"
+			               oninput="formatCurrency(this)">
+			        <span class="input-group-text" id="basic-addon1">VNĐ</span>
+		        </div>
+		        @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger" })
+	        </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThanhTien, "Thành tiền", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group mb-3">
+                    <input type="text"
+                           id="ThanhTienInput"
+                           name="ThanhTienInput"
+                           class="form-control-sm"
+                           placeholder="Nhập ở dạng số"
+                           aria-label="ThanhTien"
+                           aria-describedby="basic-addon1"
+                           value="@Model.ThanhTien.ToString("N0")"
+                           oninput="formatCurrency(this)">
+                    <span class="input-group-text" id="basic-addon1">VNĐ</span>
+                </div>
+                @Html.ValidationMessageFor(model => model.ThanhTien, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+	        <div class="col-md-offset-2 col-md-10">
+		        <input type="submit" value="Save" class="btn btn-success" />
+	        </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
