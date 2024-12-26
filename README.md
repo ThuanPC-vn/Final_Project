@@ -1,4 +1,4 @@
-<h2 align="left">Hi 👋! Nếu bạn đọc được dòng này chắc bạn đã có chút quan tâm tới dự án nhóm của mình, bạn có thể tham khảo thoải mái code của mình ở trên đây, dù gì thì đây cũng là một dự án tương đối, không quá khó cũng không dễ dàng, nhưng mình vẫn nghĩ là nên share ra để mọi người có thể cùng nhau nghiên cứu và tiến bộ hơn trong bộ môn lập trình này.</h2>
+<h2 align="left">Hi 👋! Nếu bạn đọc được dòng này chắc bạn đã có chút quan tâm tới dự án nhóm của mình, bạn có thể tham khảo thoải mái code của mình ở trên đây, dù gì thì đây cũng là một dự án tương đối, không quá khó cũng không dễ dàng, nhưng mình vẫn nghĩ là nên share ra để mọi người có thể cùng nhau nghiên cứu và tiến bộ hơn trong bộ môn Phát triển ứng dụng web này.</h2>
 
 ###
 
