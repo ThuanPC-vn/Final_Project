@@ -1,4 +1,10 @@
-﻿
+﻿/**
+* File SQL của dự án cuối kỳ môn Phát Triển Ứng Dụng Web
+* Nhóm 6 - Lớp CC23TTH - Khoa Công Nghệ Thông Tin
+* MSSV: Trần 23TH2308 Nhật Hào - Huỳnh 23TH2520 Lê Minh Thuận
+*/
+
+
 -- Tạo cơ sở dữ liệu mới
 CREATE DATABASE QuanLyQuanCafe;
 GO
@@ -188,6 +194,12 @@ BEGIN
               '
     EXEC SP_EXECUTESQL @SqlStr
 END
+
+-- Thêm dữ liệu này vào để tránh lỗi khi thêm dữ liệu bên dưới
+INSERT INTO KhachHang (HoTen, SoDienThoai, DiaChi)
+VALUES (N'Default', NULL, NULL);
+INSERT INTO SanPham (TenSanPham, Gia, MoTa, HinhAnh)
+VALUES (N'Bạc xỉu', 45000, N'Bạc xỉu ngon như starbuck', N'bac_xiu.jpg');
 
 
 

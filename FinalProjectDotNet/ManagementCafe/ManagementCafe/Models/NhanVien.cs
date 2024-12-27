@@ -11,8 +11,7 @@ namespace ManagementCafe.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class NhanVien
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,15 +23,7 @@ namespace ManagementCafe.Models
     
         public string NhanVienID { get; set; }
         public string HoTen { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> NgaySinh { get; set; }
-        public string NgaySinhString
-        {
-            get
-            {
-                return NgaySinh.HasValue ? NgaySinh.Value.ToString("dd/MM/yyyy") : string.Empty;
-            }
-        }
         public Nullable<bool> GioiTinh { get; set; }
         public string SoDienThoai { get; set; }
         public string DiaChi { get; set; }
