@@ -1,0 +1,77 @@
+﻿@model _23TH2508_Final_Project.Models.ChiTietHoaDon
+
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+	<h4>ChiTietHoaDon</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			ID
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.ChiTietHoaDonID)
+		</dd>
+
+		<dt>
+			Hóa đơn ID
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.HoaDonID)
+		</dd>
+        
+		<dt>
+			Nhân viên ID
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.HoaDon.NhanVienID)
+		</dd>
+
+		<dt>
+			Tên Sản Phẩm
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.SanPham.TenSanPham)
+		</dd>
+
+		<dt>
+			Số lượng
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.SoLuong)
+		</dd>
+
+		<dt>
+			Đơn Giá
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DonGia)
+		</dd>
+
+		<dt>
+			Thành tiền
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.ThanhTien)
+		</dd>
+
+		
+
+	</dl>
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { id = Model.ChiTietHoaDonID }, new { @class = "btn btn-success" }) |
+	@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</p>

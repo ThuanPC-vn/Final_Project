@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Management Cafe</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
+        <div class="container-fluid">
+            @Html.ActionLink("Management Cafe", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                <ul class="navbar-nav" style="gap: 1rem;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                    </li>
+                    @if (Session["AdminEmail"] != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownHoaDons" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Hóa Đơn
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownHoaDons">
+                                <li>@Html.ActionLink("Trang chính", "Index", "HoaDons_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Create", "Create", "HoaDons_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Chi Tiết Hóa Đơn", "Index", "ChiTietHoaDons_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownKhachHangs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Khách hàng
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownKhachHangs">
+                                <li>@Html.ActionLink("Trang chính", "Index", "KhachHangs_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Tạo mới", "Create", "KhachHangs_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownNhanViens" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Nhân Viên
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownNhanViens">
+                                <li>@Html.ActionLink("Trang chính", "Index", "NhanViens_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Tạo mới", "Create", "NhanViens_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSanPhams" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Sản Phẩm
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownSanPhams">
+                                <li>@Html.ActionLink("Trang chính", "Index", "SanPhams_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Tạo mới", "Create", "SanPhams_23TH2508", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>Nhóm 6 &copy; @DateTime.Now.Year - Management Cafe</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

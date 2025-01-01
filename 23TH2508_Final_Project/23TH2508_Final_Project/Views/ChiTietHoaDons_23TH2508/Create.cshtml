@@ -1,0 +1,152 @@
+﻿@model _23TH2508_Final_Project.Models.ChiTietHoaDon
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var sanPhamSelect = document.getElementById('SanPhamID');
+            var soLuongInput = document.getElementById('SoLuong');
+            var donGiaInput = document.getElementById('DonGiaInput');
+            var thanhTienInput = document.getElementById('ThanhTienInput');
+
+            function formatCurrency(input) {
+                // Xóa tất cả các ký tự không phải số
+                let value = input.value.replace(/\D/g, '');
+
+                // Định dạng lại số với dấu phẩy
+                value = new Intl.NumberFormat('vi-VN').format(value);
+
+                // Gán lại giá trị đã định dạng vào input
+                input.value = value;
+            }
+
+            sanPhamSelect.addEventListener('change', function () {
+                var sanPhamID = sanPhamSelect.value;
+                if (sanPhamID) {
+                    console.log('Fetching DonGia for SanPhamID:', sanPhamID);
+                    fetch('/ChiTietHoaDons/GetDonGia?sanPhamID=' + sanPhamID)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Received DonGia:', data);
+                            donGiaInput.value = new Intl.NumberFormat('vi-VN').format(data);
+                            calculateThanhTien();
+                        })
+                        .catch(error => console.error('Error fetching DonGia:', error));
+                }
+            });
+
+            soLuongInput.addEventListener('input', function () {
+                calculateThanhTien();
+            });
+
+            function calculateThanhTien() {
+                var soLuong = parseInt(soLuongInput.value.replace(/\D/g, '')) || 0;
+                var donGia = parseInt(donGiaInput.value.replace(/\D/g, '')) || 0;
+                var thanhTien = soLuong * donGia;
+                thanhTienInput.value = new Intl.NumberFormat('vi-VN').format(thanhTien);
+            }
+
+            donGiaInput.addEventListener('input', function () {
+                formatCurrency(donGiaInput);
+            });
+
+            thanhTienInput.addEventListener('input', function () {
+                formatCurrency(thanhTienInput);
+            });
+        });
+    </script>
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ChiTietHoaDon</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoaDonID, "HoaDonID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("HoaDonID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.HoaDonID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SanPhamID, "SanPhamID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SanPhamID", null, htmlAttributes: new { @class = "form-control", @id = "SanPhamID" })
+                @Html.ValidationMessageFor(model => model.SanPhamID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoLuong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control", @id = "SoLuong" } })
+                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DonGia, "Đơn Giá", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group mb-3">
+                    <input type="text"
+                           id="DonGiaInput"
+                           name="DonGiaInput"
+                           class="form-control-sm"
+                           placeholder="Nhập ở dạng số"
+                           aria-label="DonGia"
+                           aria-describedby="basic-addon1"
+                           readonly>
+                    <span class="input-group-text" id="basic-addon1">VNĐ</span>
+                </div>
+                @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThanhTien, "Thành Tiền", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group mb-3">
+                    <input type="text"
+                           id="ThanhTienInput"
+                           name="ThanhTienInput"
+                           class="form-control-sm"
+                           placeholder="Nhập ở dạng số"
+                           aria-label="ThanhTien"
+                           aria-describedby="basic-addon1"
+                           readonly>
+                    <span class="input-group-text" id="basic-addon1">VNĐ</span>
+                </div>
+                @Html.ValidationMessageFor(model => model.ThanhTien, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

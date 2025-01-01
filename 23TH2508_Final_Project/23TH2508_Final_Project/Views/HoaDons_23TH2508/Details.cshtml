@@ -1,0 +1,66 @@
+﻿@model _23TH2508_Final_Project.Models.HoaDon
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int stt = 1; // Khởi tạo biến đếm STT
+}
+
+<div class="container mt-5">
+    <div class="card" style="max-width: 600px; margin: auto;">
+        <div class="card-header text-center">
+            <h2>Hóa Đơn Chi Tiết</h2>
+        </div>
+        <div class="card-body">
+            <h4>Thông Tin Hóa Đơn</h4>
+            <dl class="row">
+                <dt class="col-sm-4">Hóa Đơn ID</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.HoaDonID)</dd>
+
+                <dt class="col-sm-4">Ngày Lập</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.NgayLap)</dd>
+
+                <dt class="col-sm-4">Tổng Tiền</dt>
+                <dd class="col-sm-8">@string.Format("{0:N0} VNĐ", Model.TongTien)</dd>
+
+                <dt class="col-sm-4">Khách hàng</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.KhachHang.HoTen)</dd>
+
+                <dt class="col-sm-4">Nhân viên Order</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.NhanVien.HoTen)</dd>
+            </dl>
+
+            <h4 class="mt-4">Chi Tiết Hóa Đơn</h4>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Đơn Giá</th>
+                        <th>Thành Tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ChiTietHoaDons)
+                    {
+                        <tr>
+                            <td>@(stt++)</td>
+                            <td>@item.SanPham.TenSanPham</td>
+                            <td>@item.SoLuong</td>
+                            <td>@string.Format("{0:N0} VNĐ", item.DonGia)</td>
+                            <td>@string.Format("{0:N0} VNĐ", item.ThanhTien)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-end">
+            <strong>Tổng Tiền: @string.Format("{0:N0} VNĐ", Model.TongTien)</strong>
+        </div>
+        <div class="card-footer text-end">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.HoaDonID }, new { @class = "btn btn-success" }) |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>
